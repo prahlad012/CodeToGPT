@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeToGPT - Pack Projects for AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💻 CodeToGPT</h1>
+            <p>Pack your project for Perplexity AI, ChatGPT & Claude</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Drag & Drop Zone -->
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-icon">📁</div>
+                <h2>Drag & Drop Your Project Here</h2>
+                <p>or</p>
+                <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
+                <button class="btn-browse" onclick="document.getElementById('folderInput').click()">
+                    📂 Browse Folder
+                </button>
+                
+                <!-- NEW: Direct Path Input Section -->
+                <div class="path-section">
+                    <p class="separator">or</p>
+                    <div class="path-input-group">
+                        <input 
+                            type="text" 
+                            id="pathInput" 
+                            placeholder="📁 Paste path: D:\FlutterProjects\emi_pro"
+                            class="path-input"
+                        >
+                        <button class="btn-path" onclick="exportFromPath()">
+                            🚀 Export & Download
+                        </button>
+                    </div>
+                    <p class="hint-text">💡 Tip: Paste full folder path and get instant download!</p>
+                </div>
+                
+                <p class="small-text">Supports Android, Flutter, Web projects</p>
+            </div>
+
+
+            <!-- Project Info Card (Hidden Initially) -->
+            <div class="info-card" id="infoCard" style="display: none;">
+                <div class="info-section">
+                    <h3>📊 Project Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Project Name:</label>
+                            <span id="projectName">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Total Files:</label>
+                            <span id="totalFiles">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Total Folders:</label>
+                            <span id="totalFolders">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Project Size:</label>
+                            <span id="projectSize">-</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="info-section">
+                    <h3>📋 File Types</h3>
+                    <div id="fileTypes" class="file-types"></div>
+                </div>
+
+
+                <!-- Export Options -->
+                <div class="info-section">
+                    <h3>⚙️ Export Options</h3>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" id="includeStructure" checked>
+                            Include Folder Structure
+                        </label>
+                        <label>
+                            <input type="checkbox" id="includeSummary" checked>
+                            Include File Summary
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- Download Button -->
+                <button class="btn-download" id="downloadBtn" onclick="generateAndDownload()">
+                    ⬇️ Download for Perplexity AI
+                </button>
+            </div>
+
+
+            <!-- Loading Indicator (Hidden Initially) -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p id="loadingText">Scanning your project...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMsg" style="display: none;"></div>
+
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMsg" style="display: none;"></div>
+        </div>
+
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💡 Upload your Android/Flutter project → Download → Upload to Perplexity AI</p>
+            <p class="small-text">Your files are processed locally. No data is sent to any server.</p>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+</query>
+
+Tumhare sabhi files ko update karna hai. Main path input feature add kar raha hoon.
+
+---
+
+## **✅ Complete Updated Code:**
+
+### **1️⃣ `templates/index.html` - Updated:**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeToGPT - Pack Projects for AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💻 CodeToGPT</h1>
+            <p>Pack your project for Perplexity AI, ChatGPT & Claude</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Drag & Drop Zone -->
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-icon">📁</div>
+                <h2>Drag & Drop Your Project Here</h2>
+                <p>or</p>
+                <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
+                <button class="btn-browse" onclick="document.getElementById('folderInput').click()">
+                    📂 Browse Folder
+                </button>
+                
+                <!-- NEW: Direct Path Input Section -->
+                <div class="path-section">
+                    <p class="separator">or</p>
+                    <div class="path-input-group">
+                        <input 
+                            type="text" 
+                            id="pathInput" 
+                            placeholder="📁 Paste project path: D:\FlutterProjects\emi_pro"
+                            class="path-input"
+                        >
+                        <button class="btn-path" onclick="exportFromPath()">
+                            🚀 Export & Download
+                        </button>
+                    </div>
+                    <p class="hint-text">💡 Tip: Paste full folder path and get instant download!</p>
+                </div>
+                
+                <p class="small-text">Supports Android, Flutter, Web projects</p>
+            </div>
+
+
+            <!-- Project Info Card (Hidden Initially) -->
+            <div class="info-card" id="infoCard" style="display: none;">
+                <div class="info-section">
+                    <h3>📊 Project Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Project Name:</label>
+                            <span id="projectName">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Total Files:</label>
+                            <span id="totalFiles">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Total Folders:</label>
+                            <span id="totalFolders">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Project Size:</label>
+                            <span id="projectSize">-</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="info-section">
+                    <h3>📋 File Types</h3>
+                    <div id="fileTypes" class="file-types"></div>
+                </div>
+
+
+                <!-- Export Options -->
+                <div class="info-section">
+                    <h3>⚙️ Export Options</h3>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" id="includeStructure" checked>
+                            Include Folder Structure
+                        </label>
+                        <label>
+                            <input type="checkbox" id="includeSummary" checked>
+                            Include File Summary
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- Download Button -->
+                <button class="btn-download" id="downloadBtn" onclick="generateAndDownload()">
+                    ⬇️ Download for Perplexity AI
+                </button>
+            </div>
+
+
+            <!-- Loading Indicator (Hidden Initially) -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p id="loadingText">Scanning your project...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMsg" style="display: none;"></div>
+
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMsg" style="display: none;"></div>
+        </div>
+
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💡 Upload your Android/Flutter project → Download → Upload to Perplexity AI</p>
+            <p class="small-text">Your files are processed locally. No data is sent to any server.</p>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
